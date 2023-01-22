@@ -1,4 +1,4 @@
-# Simple Python Version Management: pyenv + python-build
+# Simple Python Version Management Container
 
 This Dockerfile is based on the official Fedora image, but it should work with other Fedora-based images as well, like Oracle Linux, RHEL, etc.
 
@@ -22,6 +22,12 @@ export IMAGE=pyenv:f"${OS_VERSION}"
 
 ## Install a specific Python Version
 
+List available Python versions:
+
+```bash
+"${DOCKER}" run -it --rm "${IMAGE}" /opt/pyenv/bin/pyenv install -l
+```
+
 Install a Python version to a specific host folder:
 
 ```bash
@@ -34,7 +40,7 @@ mkdir -p "${PYTHON_INSTALL_DIR}"
 "${DOCKER}" run -it --rm \
                 -v "${PYTHON_INSTALL_DIR}":"${PYTHON_INSTALL_DIR}" \
                 "${IMAGE}" \
-                python-build "${PYTHON_VERSION}" "${PYTHON_INSTALL_DIR}"
+                /opt/pyenv/plugins/python-build/bin/python-build "${PYTHON_VERSION}" "${PYTHON_INSTALL_DIR}"
 ```
 
 Validate with:
